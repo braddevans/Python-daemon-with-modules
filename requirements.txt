@@ -1,0 +1,4 @@
+loguru~=0.7.3
+scheduler~=0.8.11
+
+# add your own for your modules below like pandas or something else
