@@ -14,12 +14,6 @@ class SchedulerUtil:
         logger.info("Scheduling from config...")
         logger.info(f"[{config['name']}] every {config['timer_value']} {config['timer_type']}")
 
-        # minutes, hourly, daily, weekly, monthly, yearly
-        # "timer_type":"hourly",
-
-        # At values: "HH:MM" (dt.datetime(month=2, day=15, minute=45))
-        # "timer_value": "2"
-
         # split MM:DD HH:MM:SS
         dt_parts = config["timer_value"].split(" ")
 
