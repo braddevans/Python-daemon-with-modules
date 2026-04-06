@@ -1,7 +1,9 @@
 import datetime as dt
-from scheduler.asyncio import Scheduler
-from scheduler import trigger
+
 from loguru import logger
+from scheduler import trigger
+from scheduler.asyncio import Scheduler
+
 
 class SchedulerUtil:
     def __init__(self, loop):
@@ -21,23 +23,18 @@ class SchedulerUtil:
         time_parts = dt_parts[1].split(":")
 
         # get month, day, year
-        month = int(date_parts[0])
-        day = int(date_parts[1])
+        day = int(date_parts[0])
 
         # get hours, minutes, seconds
         hours = int(time_parts[0])
         minutes = int(time_parts[1])
         seconds = int(time_parts[2])
 
-        if config["timer_type"] == "seconds":
-            self.scheduler.cyclic(dt.timedelta(seconds=seconds), func)
-        elif config["timer_type"] == "minutes":
-            self.scheduler.minutely(dt.time(second=seconds), func)
-        elif config["timer_type"] == "hourly":
+        if config["timer_type"] == "every":
+            self.scheduler.cyclic(dt.timedelta(hour=hours, minute=minutes, seconds=seconds), func)
+        elif config["timer_type"] == "timed":
             self.scheduler.hourly(dt.time(minute=minutes, second=seconds), func)
-        elif config["timer_type"] == "daily":
-            self.scheduler.daily(dt.time(hours=hours, minutes=minutes), func)
-        elif config["timer_type"] == "weekly":
+        elif config["timer_type"] == "weekly_timed":
             trigger_value = dt.time(hour=hours, minute=minutes, second=seconds)
             if day == 1:
                 self.scheduler.weekly(trigger.Monday(trigger_value), func)
