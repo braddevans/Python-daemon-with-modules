@@ -31,7 +31,7 @@ class SchedulerUtil:
         seconds = int(time_parts[2])
 
         if config["timer_type"] == "every":
-            self.scheduler.cyclic(dt.timedelta(hour=hours, minute=minutes, seconds=seconds), func)
+            self.scheduler.cyclic(dt.timedelta(hours=hours, minutes=minutes, seconds=seconds), func)
         elif config["timer_type"] == "timed":
             self.scheduler.hourly(dt.time(minute=minutes, second=seconds), func)
         elif config["timer_type"] == "weekly_timed":
